@@ -42,7 +42,7 @@ class ServiceFidpro extends ServiceProvider
 
     private function isVendorPublishCommand()
     {
-        return Artisan::command() === 'vendor:publish';
+        return $this->app->runningInConsole() && $this->app->runningArtisanCommands('vendor:publish');
     }
 }
 
