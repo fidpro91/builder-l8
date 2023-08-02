@@ -6,13 +6,14 @@
     "extra": {
         "laravel": {
             "providers": [
-                "builderl8\\providers\\ServiceFidpro"
+                "fidpro\\builder\\providers\\ServiceFidpro"
             ]
         }
     },
     "autoload": {
         "psr-4": {
-            "builder\\builderl8\\": "src/"
+            "Fidpro\\Builder\\": "src/",
+            "fidpro\\builder\\providers\\": "src/providers/"
         }
     },
     "authors": [

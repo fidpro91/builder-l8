@@ -1,5 +1,5 @@
 <?php
-namespace builderl8\providers;
+namespace fidpro\builder\providers;
 
 use Illuminate\Support\ServiceProvider;
 
@@ -17,8 +17,8 @@ class ServiceFidpro extends ServiceProvider
             __DIR__.'/path/ke/file/konfigurasi.php' => app_path('nama_file_konfigurasi.php'),
         ], 'config'); */
         $this->publishes([
-            __DIR__.'/commands' => app_path('Console'),
-        ], 'Commands');
+            __DIR__.'/../commands' => app_path('Console'),
+        ], 'fidpro-commands');
     }
 }
 
