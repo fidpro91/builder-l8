@@ -15,29 +15,25 @@ class ServiceFidpro extends ServiceProvider
 
     public function boot(Filesystem $filesystem)
     {
-        $artisanCommand = 'vendor:publish';
+        if ($this->app->runningInConsole()) {
+            // Check if the 'fidpro-l8' tag is used with the 'vendor:publish' command
+            $tags = $this->app['request']->input('tag');
+            if (is_array($tags) && in_array('fidpro-l8', $tags)) {
+                // Publish the commands folder to app/Console/Commands
+                $this->publishes([
+                    __DIR__.'/../Commands' => app_path('Console/Commands'),
+                    __DIR__.'/../builder' => resource_path('stubs'),
+                    __DIR__.'/../default-assets' => public_path('assets'),
+                    __DIR__.'/../Helpers' => app_path('Helpers'),
+                    __DIR__.'/../layouts' => resource_path('views/templates'),
+                ], 'fidpro-l8');
 
-        // Get the output of running 'php artisan vendor:publish'
-        $output = Artisan::call($artisanCommand, ['-h']);
-
-        // Check if the output contains the help information of the vendor:publish command
-        $isVendorPublishCommand = Str::contains($output, 'Publish any publishable assets from vendor packages');
-
-        if ($this->app->runningInConsole() && $isVendorPublishCommand) {
-            // Publish the commands folder to app/Console/Commands
-            $this->publishes([
-                __DIR__.'/../Commands' => app_path('Console/Commands'),
-                __DIR__.'/../builder' => resource_path('stubs'),
-                __DIR__.'/../default-assets' => public_path('assets'),
-                __DIR__.'/../Helpers' => app_path('Helpers'),
-                __DIR__.'/../layouts' => resource_path('views/templates'),
-            ], 'fidpro-l8');
-
-            // Copy the files inside the commands folder to app/Console/Commands
-            $filesystem->copy(__DIR__.'/../core/Controller.php', app_path('Http/Controllers/Controller.php'), true);
-            $filesystem->copyDirectory(__DIR__.'/../Commands', app_path('Console/Commands'));
-            $filesystem->copyDirectory(__DIR__.'/../builder', resource_path('stubs'));
-            $filesystem->copyDirectory(__DIR__.'/../layouts', resource_path('views/templates'));
+                // Copy the files inside the commands folder to app/Console/Commands
+                $filesystem->copy(__DIR__.'/../core/Controller.php', app_path('Http/Controllers/Controller.php'), true);
+                $filesystem->copyDirectory(__DIR__.'/../Commands', app_path('Console/Commands'));
+                $filesystem->copyDirectory(__DIR__.'/../builder', resource_path('stubs'));
+                $filesystem->copyDirectory(__DIR__.'/../layouts', resource_path('views/templates'));
+            }
         }
 
         // Perform any other package specific bootstrapping here
