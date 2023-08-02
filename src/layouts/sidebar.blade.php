@@ -5,9 +5,9 @@
 
         <!-- User box -->
         <div class="user-box text-center">
-            <img src="{{asset('storage/uploads/'.$profil->logo_side)}}" alt="user-img" title="Mat Helme" class="rounded-circle img-thumbnail avatar-lg">
+            <img src="" alt="user-img" title="Mat Helme" class="rounded-circle img-thumbnail avatar-lg">
             <p class="text-muted">
-                {!! $profil->nama_instansi!!}
+                NAMA INSTANSI
             </p>
         </div>
 

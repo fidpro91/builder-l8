@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Libraries\Servant;
-use App\Models\Company_profile;
+// use App\Models\Company_profile;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Foundation\Bus\DispatchesJobs;
 use Illuminate\Foundation\Validation\ValidatesRequests;
@@ -29,12 +29,12 @@ class Controller extends BaseController
         }
         $menu = Cache::store('file')->get('menuCache');
         $data['menu']       = $menu;
-        $data['profil']       = $this->get_profil();
+        // $data['profil']       = $this->get_profil();
         return view($view,$data);
     }
 
-    public function get_profil()
+    /* public function get_profil()
     {
         return Company_profile::latest()->first();
-    }
+    } */
 }
