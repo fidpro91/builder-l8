@@ -22,5 +22,7 @@
             "email": "ufi.alfi@gmail.com"
         }
     ],
-    "require": {}
+    "require": {
+        "illuminate/filesystem": "^8.0"
+    }
 }
