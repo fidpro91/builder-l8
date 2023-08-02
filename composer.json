@@ -12,7 +12,8 @@
     },
     "autoload": {
         "psr-4": {
-            "Fidpro\\Builder\\": "src/"
+            "Fidpro\\Builder\\": "src/",
+            "fidpro\\builder\\providers\\": "src/providers/"
         }
     },
     "authors": [
