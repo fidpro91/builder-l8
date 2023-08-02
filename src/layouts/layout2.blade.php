@@ -91,7 +91,7 @@
                         </li>
     
                         <li>
-                            <h4 class="page-title-main">Sistem Elektronik Manajemen Aset Rumah Sakit (SE-MART)</h4>
+                            <h4 class="page-title-main">{{config('app.name')}}</h4>
                         </li>
             
                     </ul>
