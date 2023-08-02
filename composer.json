@@ -23,9 +23,6 @@
         }
     ],
     "require": {
-        "illuminate/filesystem": "^8.0",
-        "laravelcollective/html": "^6.3",
-        "yajra/laravel-datatables-oracle": "^9.21"
-
+        "illuminate/filesystem": "^8.0"
     }
 }
