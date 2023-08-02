@@ -3,8 +3,6 @@ namespace fidpro\builder\providers;
 
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Filesystem\Filesystem;
-use Illuminate\Support\Facades\Artisan;
-use Illuminate\Support\Str;
 
 class ServiceFidpro extends ServiceProvider
 {
