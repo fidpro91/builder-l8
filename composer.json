@@ -3,6 +3,13 @@
     "description": "Laravel form builder",
     "type": "library",
     "license": "MIT",
+    "extra": {
+        "laravel": {
+            "providers": [
+                "fidpro\\providers\\ServiceFidpro"
+            ]
+        }
+    },
     "autoload": {
         "psr-4": {
             "Fidpro\\Builder\\": "src/"
