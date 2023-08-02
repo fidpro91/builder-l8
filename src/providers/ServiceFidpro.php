@@ -4,6 +4,7 @@ namespace fidpro\builder\providers;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Filesystem\Filesystem;
 use Illuminate\Support\Facades\Artisan;
+use Illuminate\Support\Str;
 
 class ServiceFidpro extends ServiceProvider
 {
@@ -14,7 +15,15 @@ class ServiceFidpro extends ServiceProvider
 
     public function boot(Filesystem $filesystem)
     {
-        if ($this->app->runningInConsole() && $this->isVendorPublishCommand()) {
+        $artisanCommand = 'vendor:publish';
+
+        // Get the output of running 'php artisan vendor:publish'
+        $output = Artisan::call($artisanCommand, ['-h']);
+
+        // Check if the output contains the help information of the vendor:publish command
+        $isVendorPublishCommand = Str::contains($output, 'Publish any publishable assets from vendor packages');
+
+        if ($this->app->runningInConsole() && $isVendorPublishCommand) {
             // Publish the commands folder to app/Console/Commands
             $this->publishes([
                 __DIR__.'/../Commands' => app_path('Console/Commands'),
@@ -38,11 +47,6 @@ class ServiceFidpro extends ServiceProvider
 
         // Merge configuration if needed
         // $this->mergeConfigFrom(__DIR__.'/config/example.php', 'example');
-    }
-
-    private function isVendorPublishCommand()
-    {
-        return $this->app->runningInConsole() && $this->app->runningArtisanCommands('vendor:publish');
     }
 }
 
