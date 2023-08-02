@@ -1,5 +1,5 @@
 <?php
-namespace fidpro\providers;
+namespace fidpro\builder\providers;
 
 use Illuminate\Support\ServiceProvider;
 

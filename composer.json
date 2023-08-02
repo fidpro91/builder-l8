@@ -6,7 +6,7 @@
     "extra": {
         "laravel": {
             "providers": [
-                "fidpro\\providers\\ServiceFidpro"
+                "fidpro\\builder\\providers\\ServiceFidpro"
             ]
         }
     },
