@@ -6,6 +6,8 @@ use Illuminate\Filesystem\Filesystem;
 
 class ServiceFidpro extends ServiceProvider
 {
+    protected static $published = false;
+
     public function register()
     {
         // Daftarkan service atau binding di sini
@@ -13,7 +15,7 @@ class ServiceFidpro extends ServiceProvider
 
     public function boot(Filesystem $filesystem)
     {
-        if ($this->app->runningInConsole()) {
+        if ($this->app->runningInConsole() && !$this->shouldBePublished()) {
             // Publish the commands folder to app/Console/Commands
             $this->publishes([
                 __DIR__.'/../Commands' => app_path('Console/Commands'),
@@ -39,6 +41,11 @@ class ServiceFidpro extends ServiceProvider
 
         // Merge configuration if needed
         // $this->mergeConfigFrom(__DIR__.'/config/example.php', 'example');
+    }
+
+    private function shouldBePublished()
+    {
+        return static::$published;
     }
 }
 
