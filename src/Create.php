@@ -79,7 +79,7 @@ class Create
         if (isset($attr['option'])) {
             $defaultAttr=array_merge($defaultAttr,$attr['option']);
         }
-        $form = "<textarea ".self::array_to_attr($defaultAttr).">".$attr['value']."</textarea>";
+        $form = "<textarea ".self::array_to_attr($defaultAttr).">".($attr['value']??"")."</textarea>";
         return self::_set_output($form,$name);
     }
 
@@ -187,7 +187,7 @@ class Create
             foreach ($data as $key => $value) {
                 if (is_array($value)) {
                     $dataDropdown[] = '<div class="custom-control custom-radio">
-                        <input type="radio" id="'.$id.$key.'" name="'.$id.'" class="custom-control-input" value="'. key($value) .'">
+                        <input type="radio" id="'.$id.$key.'" name="'.$id.'" class="custom-control-input" value="'.$key.'">
                         <label class="custom-control-label" for="'.$id.$key.'">'.current($value).'</label>
                     </div>';
                 } else {
@@ -238,7 +238,7 @@ class Create
             foreach ($data as $key => $value) {
                 if (is_array($value)) {
                     $dataDropdown[] = '<div class="custom-control custom-checkbox">
-                        <input type="checkbox" id="'.$id.$key.'" name="'.$id."[".$key."]".'" class="custom-control-input" value="'. key($value).'">
+                        <input type="checkbox" id="'.$id.$key.'" name="'.$id."[".$key."]".'" class="custom-control-input" value="'.$key.'">
                         <label class="custom-control-label" for="'.$id.$key.'">'.current($value).'</label>
                     </div>';
                 } else {

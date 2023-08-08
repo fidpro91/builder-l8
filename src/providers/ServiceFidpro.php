@@ -19,6 +19,7 @@ class ServiceFidpro extends ServiceProvider
             // Publish the commands folder to app/Console/Commands
             $this->publishes([
                 __DIR__.'/../Commands' => app_path('Console/Commands'),
+                __DIR__.'/../providers/FidproServiceProvider.php' => app_path('Providers'),
                 __DIR__.'/../Libraries' => app_path('Libraries'),
                 __DIR__.'/../builder' => resource_path('stubs'),
                 __DIR__.'/../default-assets' => public_path('assets'),
