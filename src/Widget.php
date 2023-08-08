@@ -23,6 +23,17 @@ class Widget extends Create
                     echo '<link href="'.asset('assets/themes/assets/libs/select2/css/select2.min.css').'" rel="stylesheet" />
                     <script src="'.asset('assets/themes/assets/libs/select2/js/select2.full.min.js').'"></script> ';
                     break;
+                case 'switcher':
+                    echo '<link href="https://cdn.jsdelivr.net/npm/bootstrap-switch@3/dist/css/bootstrap3/bootstrap-switch.min.css" rel="stylesheet">
+                    <script src="https://cdn.jsdelivr.net/npm/bootstrap-switch@3/dist/js/bootstrap-switch.min.js"></script>
+                    <style>
+                        .switch-container {
+                            display: inline-block !important;
+                            vertical-align: middle !important;
+                            margin-left: 10px; /* Sesuaikan margin sesuai kebutuhan */
+                        }
+                    </style>';
+                    break;
                 case 'datepicker':
                     echo '<link href="'.asset('assets/themes/assets/libs/bootstrap-datepicker/bootstrap-datepicker.css').'" rel="stylesheet" type="text/css" />
                     <script src="'.asset('assets/themes/assets/libs/bootstrap-datepicker/bootstrap-datepicker.min.js').'"></script> ';
@@ -135,9 +146,30 @@ class Widget extends Create
         if (is_array($attr['mask'])) {
             $form .= "$('#" . $name . "').inputmask(\"" . $attr['mask'][0] . '",' . json_encode($attr['mask'][1]) . ")\n";
         } else {
-            $form.= "$('#" . $name . "').inputmask(\"" . $attr['mask'] . "\")\n";
+            $form.= "$('#" . $name . "').inputmask(\"" . json_encode($attr['mask']) . "\")\n";
         }
         $form     .= '</script>'."\n";
+        return self::_set_output($form,$name);
+    }
+
+    public static function switcher($name,$attr)
+    {
+        $form   = '<div class="switch-container">';
+        $form   .= self::input($name,[
+            "type"  => "checkbox"
+        ])->render();
+        $form .= "</div>";
+        $form     .= "<script>\n";
+        $json = json_encode($attr["option"], JSON_UNESCAPED_UNICODE | JSON_NUMERIC_CHECK);
+        $json = preg_replace('/"([^"]+)"\s*:\s*/', '$1:', $json);
+        $form     .= "$('#" . $name . "').bootstrapSwitch(" . $json . ")\n";
+        if (isset($attr["onchange"])) {
+            $form .= "
+                $('#$name').on('switchChange.bootstrapSwitch',".$attr["onchange"].");
+            ";
+        }
+        $form     .= "</script>\n";
+
         return self::_set_output($form,$name);
     }
 }

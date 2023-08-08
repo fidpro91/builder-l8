@@ -3,7 +3,7 @@
 <?php
 use \fidpro\builder\Create;
 use \fidpro\builder\Widget;
-Widget::_init(["select2","daterangepicker","datepicker","inputmask"]);
+Widget::_init(["select2","daterangepicker","datepicker","inputmask","switcher"]);
 ?>
 <div class="col-md-12">
     <p>
@@ -147,6 +147,63 @@ Widget::_init(["select2","daterangepicker","datepicker","inputmask"]);
                                 ]
                             ]
                         ])->render("group");
+                    !!}
+                    @endverbatim
+                    </pre>
+                </div>
+            </div>
+        </div>
+        <div class="card mb-0">
+            <div class="card-header" id="heading5">
+                <h5 class="m-0">
+                    <a href="#collapse5" class="text-dark" data-toggle="collapse" aria-expanded="false" aria-controls="collapseOne">
+                        BOOSTRAP SWITCHER
+                    </a>
+                </h5>
+            </div>
+            <div id="collapse5" class="collapse" aria-labelledby="heading5" data-parent="#accordion">
+                <div class="card-body">
+                    <pre>Widget::_init(["switcher"]);</pre>
+                    {!!
+                        Widget::switcher("tes",[
+                            'option'    => [
+                                'onText'      =>  'Ya',
+                                'offText'     => 'Tidak',
+                                'onColor'     => 'success',
+                                'offColor'    => 'danger',
+                                'state'       => false
+                            ],
+                            'onchange'  => '
+                                function(event, state) {
+                                    if (state) {
+                                        console.log("Switch diaktifkan (Ya)");
+                                    } else {
+                                        console.log("Switch dinonaktifkan (Tidak)");
+                                    }
+                                }
+                            '
+                        ])->render('group')
+                    !!}
+                    <pre>@verbatim
+                    {!!
+                        Widget::switcher("tes",[
+                            'option'    => [
+                                'onText'      =>  'Ya',
+                                'offText'     => 'Tidak',
+                                'onColor'     => 'success',
+                                'offColor'    => 'danger',
+                                'state'       => true
+                            ],
+                            'onchange'  => '
+                                function(event, state) {
+                                    if (state) {
+                                        console.log("Switch diaktifkan (Ya)");
+                                    } else {
+                                        console.log("Switch dinonaktifkan (Tidak)");
+                                    }
+                                }
+                            '
+                        ])->render('group')
                     !!}
                     @endverbatim
                     </pre>
