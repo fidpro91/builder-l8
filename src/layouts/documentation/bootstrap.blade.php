@@ -217,6 +217,97 @@ Widget::_init(["select2","daterangepicker","datepicker","inputmask"]);
                 </div>
             </div>
         </div>
+        <div class="card mb-0">
+            <div class="card-header" id="heading5">
+                <h5 class="m-0">
+                    <a href="#collapse5" class="text-dark" data-toggle="collapse" aria-expanded="false" aria-controls="collapseOne">
+                        DATA TABLE
+                    </a>
+                </h5>
+            </div>
+            <div id="collapse5" class="collapse" aria-labelledby="heading5" data-parent="#accordion">
+                <div class="card-body">
+                    {{
+                        Bootstrap::DataTable("table-data",[
+                            "class" => "table table-hover"
+                        ],[
+                            "url"   => "visit/get_dataTable",
+                            "raw"   => [
+                                '#'     => [
+                                    "data" => "action", 
+                                    "name" => "action", 
+                                    "settings"  => [
+                                        "orderable" => "false", 
+                                        "searchable" => "false"
+                                    ]
+                                ],
+                                'no'    => [
+                                    "data" => "DT_RowIndex",
+                                    "settings"  => [
+                                        "orderable" => "false", 
+                                        "searchable" => "false"
+                                    ]
+                                ],
+                                'tanggal'    => [
+                                    "data" => "visit_date",
+                                    "name" => "v.visit_date"
+                                ],
+                                'PASIEN'    => [
+                                    "data" => "px_norm",
+                                    "name" => "p.px_norm"
+                                ],
+                                'POLI TUJUAN'    => [
+                                    "data" => "unit_name",
+                                    "name" => "mu.unit_name"
+                                ]
+                            ]
+                        ])
+                    }}
+                    <pre>@verbatim
+                    {{
+                        Bootstrap::DataTable("table-data",[
+                            "class" => "table table-hover"
+                        ],[
+                            "url"   => "visit/get_dataTable",
+                            "raw"   => [
+                                '#'     => [
+                                    "data" => "action", 
+                                    "name" => "action", 
+                                    "settings"  => [
+                                        "orderable" => "false", 
+                                        "searchable" => "false"
+                                    ]
+                                ],
+                                'no'    => [
+                                    "data" => "DT_RowIndex",
+                                    "settings"  => [
+                                        "orderable" => "false", 
+                                        "searchable" => "false"
+                                    ]
+                                ],
+                                'tanggal'    => [
+                                    "data" => "visit_date",
+                                    "name" => "v.visit_date"
+                                ],
+                                'PASIEN'    => [
+                                    "data" => "px_norm",
+                                    "name" => "p.px_norm"
+                                ],
+                                'POLI TUJUAN'    => [
+                                    "data" => "unit_name",
+                                    "name" => "mu.unit_name"
+                                ]
+                            ],
+                            "dataTable" => [
+                                "errors"   => "false"
+                            ]
+                        ])
+                    }}
+                    @endverbatim
+                    </pre>
+                </div>
+            </div>
+        </div>
     </div>
 </div>
 @endsection
