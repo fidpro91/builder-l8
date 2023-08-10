@@ -146,7 +146,15 @@ class Create
         if (isset($attr['extra'])) {
             $defaultAttr = array_merge($defaultAttr, $attr['extra']);
         }
-        $select = "<select " . self::array_to_attr($defaultAttr) . "><option value=\"\">---</option>" . implode("\n", $dataDropdown) . "</select>";
+        
+        $select = "<select " . self::array_to_attr($defaultAttr) . ">\n";
+        if (isset($attr["nullable"])) {
+            $select .= "<option value=\"\">---</option>\n";
+        }
+        if (!empty($dataDropdown)) {
+            $select .= implode("\n", $dataDropdown);
+        }
+        $select .= "</select>";
         return self::_set_output($select,$id);
     }
 
