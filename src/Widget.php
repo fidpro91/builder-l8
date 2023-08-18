@@ -24,8 +24,8 @@ class Widget extends Create
                     <script src="'.asset('assets/themes/assets/libs/select2/js/select2.full.min.js').'"></script> ';
                     break;
                 case 'switcher':
-                    echo '<link href="https://cdn.jsdelivr.net/npm/bootstrap-switch@3/dist/css/bootstrap3/bootstrap-switch.min.css" rel="stylesheet">
-                    <script src="https://cdn.jsdelivr.net/npm/bootstrap-switch@3/dist/js/bootstrap-switch.min.js"></script>
+                    echo '<link href="'.asset('assets/js/bootstrap-switch/bootstrap-switch.min.css').'" rel="stylesheet" />
+                    <script src="'.asset('assets/js/bootstrap-switch/bootstrap-switch.min.js').'"></script>
                     <style>
                         .switch-container {
                             display: inline-block !important;

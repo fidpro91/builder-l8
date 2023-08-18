@@ -83,6 +83,55 @@ class Create
         return self::_set_output($form,$name);
     }
 
+    public static function formGroup($param)
+    {
+        $input="";
+        foreach ($param['group'] as $key => $value) {
+            $input .= self::set_input($key,$value);
+        }
+        $input = '<div class="input-group">'.$input.'</div>';
+        return self::_set_output($input,'tes');
+    }
+
+    private function set_input($type,$param)
+    {
+        if (isset($param["id"])) {
+            $id = $name = $param["id"];
+        }
+        // $name = $param["name"];
+        $val = "";
+        if (isset($param['value'])) {
+            $val = $param['value'];
+        }
+        switch ($type) {
+            case 'input':
+                $attr = [
+                    "name"          => $name,
+                    "class"         => "form-control ".$id,
+                    "value"         => $val
+                ];
+                if (isset($param["attributes"])) {
+                    $attr = array_merge($attr,$param["attributes"]);
+                }
+                $input = self::input($id,$attr)->render();
+                break;
+            case 'select':
+                $param['option']["selected"] = $val;
+                $param['option']['extra'] = [
+                    'name'  => $name,
+                ];
+                $input = self::dropDown($id,$param['option'])->render();
+                break;
+            case 'hidden':
+                $input = '<input type="hidden" value="'.$val.'" name="'.$name.'" class="'.$id.'" />';
+                break;
+            default:
+                $input = $param["value"];
+                break;
+        }
+        return $input;
+    }
+
     public static function dropDown($id, $attr)
     {
         if (isset($attr['data']['model'])) {
@@ -124,7 +173,7 @@ class Create
             $data = $attr['data'];
             foreach ($data as $key => $value) {
                 if (is_array($value)) {
-                    $val = key($value);
+                    $val = $key;
                     $text = current($value);
                 } else {
                     $val = $text = $value;
@@ -179,12 +228,12 @@ class Create
             $dataDropdown = [];
             foreach ($dataSelect as $key => $value) {
                 if (isset($data['column'])) {
-                    $dataDropdown[] = '<div class="custom-control custom-radio">
+                    $dataDropdown[] = '<div class="custom-control custom-radio" style="display: inline-block;">
                         <input type="radio" id="'.$id.$key.'" name="'.$id.'" class="custom-control-input" value="'. $value->{$data['column'][0]} .'">
                         <label class="custom-control-label" for="'.$id.$key.'">'.$value->{$data['column'][1]}.'</label>
                     </div>';
                 } else {
-                    $dataDropdown[] = '<div class="custom-control custom-radio">
+                    $dataDropdown[] = '<div class="custom-control custom-radio" style="display: inline-block;">
                         <input type="radio" id="'.$id.$key.'" name="'.$id.'" class="custom-control-input" value="'. $value.'">
                         <label class="custom-control-label" for="'.$id.$key.'">'.$value.'</label>
                     </div>';
@@ -194,19 +243,19 @@ class Create
             $data = $attr['data'];
             foreach ($data as $key => $value) {
                 if (is_array($value)) {
-                    $dataDropdown[] = '<div class="custom-control custom-radio">
+                    $dataDropdown[] = '<div class="custom-control custom-radio" style="display: inline-block;">
                         <input type="radio" id="'.$id.$key.'" name="'.$id.'" class="custom-control-input" value="'.$key.'">
                         <label class="custom-control-label" for="'.$id.$key.'">'.current($value).'</label>
                     </div>';
                 } else {
-                    $dataDropdown[] = '<div class="custom-control custom-radio">
+                    $dataDropdown[] = '<div class="custom-control custom-radio" style="display: inline-block;">
                         <input type="radio" id="'.$id.$key.'" name="'.$id.'" class="custom-control-input" value="'. $value.'">
                         <label class="custom-control-label" for="'.$id.$key.'">'.$value.'</label>
                     </div>';
                 }
             }
         }
-        $radio = implode("\n", $dataDropdown);
+        $radio = "<br>".implode("\n", $dataDropdown);
         return self::_set_output($radio,$id);
     }
     

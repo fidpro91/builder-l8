@@ -27,7 +27,7 @@ class Multirow extends Create
                     ";
         }
         $row .= "<td>
-            <button class=\"remove-tr-".$data['id']." btn btn-xs btn-danger\"><i class=\"fas fa-trash\"></i></button>
+            <a href=\"javascript:void(0)\" class=\"remove-tr-".$data['id']." btn btn-xs btn-danger\"><i class=\"fas fa-trash\"></i></a>
         </td></tr>";
 
         if ($val) {
@@ -63,7 +63,7 @@ class Multirow extends Create
                         ";
             }
             $row .= "<td>
-                <button class=\"remove-tr-".$data['id']." btn btn-xs btn-danger\"><i class=\"fas fa-trash\"></i></button>
+                <a href=\"javascript:void(0)\" class=\"remove-tr-".$data['id']." btn btn-xs btn-danger\"><i class=\"fas fa-trash\"></i></a>
             </td></tr>";
         }
         self::$i = $x;
@@ -75,18 +75,19 @@ class Multirow extends Create
         $i=self::$i;
         $scripts = '
         <script>
-            var row='.$i.';
+            var row'.$id.'='.$i.';
             $(document).ready(()=>{
                 $("#btn-'.$id.'").click(()=>{
-                    row++;
+                    row'.$id.'++;
                     var inputan = \''.preg_replace('/\s+/', ' ', trim(addslashes($row))).'\';
-                    inputan = inputan.replace(/num_row/g, row);
+                    inputan = inputan.replace(/num_row/g, row'.$id.');
                     $("#'.$id.' > tbody").append(inputan);
-                    $("#'.$id.' > tbody tr:last").find("td:first").text(row+1);
+                    $("#'.$id.' > tbody tr:last").find("td:first").text(row'.$id.'+1);
                 });
             });
             $(document).on("click", ".remove-tr-'.$id.'", function(){
                 $(this).parents("tr").remove();
+                row'.$id.' = row'.$id.'-1;
             });
         </script>
         ';
@@ -158,7 +159,8 @@ class Multirow extends Create
             case 'select':
                 $param['option']["selected"] = $val;
                 $param['option']['extra'] = [
-                    'name'  => $name,
+                    'name'      => $name,
+                    'class'     => "form-control ".$param['name']
                 ];
                 $input = self::dropDown($param['name'],$param['option'])->render();
                 break;

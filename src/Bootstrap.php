@@ -255,6 +255,71 @@ class Bootstrap
         echo $html . "\n" . $contents."\n".$script;
     }
 
+    public static function collaption($data)
+    {
+        $html = '<div id="accordion_'.$data["id"].'">';
+        $i = 0;
+        if (is_callable($data['collaption'])) {
+            $data['collaption'] = call_user_func($data['collaption']);
+        }
+        foreach ($data['collaption'] as $key => $value) {
+            $click = $active = '';
+            if ($i == 0) {
+                $active = 'active';
+            }
+            if (isset($value['url'])) {
+                $click = 'onclick="loadCollaption'.($data['id']??'').'(\''.$value['href'].'\',\''.url($value['url']).'\')"';
+            }
+
+            $html .= '
+            <div class="card mb-0">
+            <div class="card-header" id="heading_'.$i.'">
+                <h5 class="m-0">
+                    <a href="#collapse_'.$i.'" class="text-dark '.$active.'" '.$click.' data-toggle="collapse" aria-expanded="false" aria-controls="collapse_'.$i.'">
+                        '.strtoupper($value['name']).'
+                    </a>
+                </h5>
+            </div>';
+
+            /* $html .= '
+            <li class="nav-item">
+                <a href="#' . $value['href'] . '" data-toggle="tab" aria-expanded="false" class="nav-link ' . $active . '" ' . $click . '>
+                    <i class="mdi mdi-home-variant d-lg-none d-block mr-1"></i>
+                    <span class="d-none d-lg-block">' . $key . '</span>
+                </a>
+            </li>'; */
+            $clear = 'clear';
+            $cont='';
+            if (!empty($value['content'])) {
+                if (is_callable($value['content'])) {
+                    $value['content'] = call_user_func($value['content']);
+                }
+                $clear = '';
+                $cont = $value['content'];
+            }
+            $html .= '
+            <div id="collapse_'.$i.'" class="collapse '.$clear.' ' . $active . '" aria-labelledby="heading_'.$i.'" data-parent="#accordion_'.$data["id"].'">
+                <div class="card-body">';
+            $html .= $cont;
+            $html .= "
+                    </div>
+                </div>
+            </div>";
+            $i++;
+        }
+        $html .= '</div>';
+
+        $script = "
+        <script>
+            function loadCollaption".($data['id']??'')."(a,b){
+                $('#".($data['id']??'tab')."').find('.collapse.clear').html('".self::$defaultContent."');
+                $('#'+a+'').load(b);
+            }
+        </script>";
+
+        echo $html . "\n" ."\n".$script;
+    }
+
     private function array_to_attr($attr)
     {
         $ret = '';
