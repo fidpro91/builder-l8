@@ -45,8 +45,12 @@ class Servant
                 $menux .= self::get_menu($value->menu_id);
                 $menux .= "</ul></li>";
             }else{
-                $menux .= "<li><a href=\"".URL($value->menu_url)."\">
-                        <i class=\"".(!empty($value->menu_icon)?$value->menu_icon:'')."\"></i> ".strtoupper($value->menu_name)."
+                $fun="";
+                if (!empty($value->menu_function)) {
+                    $fun = "onclick=\"$value->menu_function(this,event)\"";
+                }
+                $menux .= "<li><a $fun href=\"".URL("$value->menu_url")."\">
+                        <i class=\"".(!empty($value->menu_icon)?$value->menu_icon:'')."\"></i><span>".strtoupper($value->menu_name)."</span>
                         </a></li>";
             }
         }
