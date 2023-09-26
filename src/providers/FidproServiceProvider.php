@@ -25,7 +25,9 @@ class FidproServiceProvider extends ServiceProvider
     public function boot()
     {
         $currentPath = request()->path();
-        $view = str_replace('/','.',$currentPath);
-        Route::view($currentPath,"templates.".$view);
+        if (strpos($currentPath, "fidpro") !== false) {
+            $view = str_replace('/','.',str_replace('fidpro','',$currentPath));
+            Route::view($currentPath,"templates.".$view);
+        }
     }
 }

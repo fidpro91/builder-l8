@@ -16,6 +16,11 @@ $(document).ready(function () {
     $.ajaxSetup({
       "type": "post"
     });
+    if ($(this).attr("data-url-store")) {
+      $.ajaxSetup({
+        "url": $(this).attr("data-url-store")
+      });
+    }
     if ($(this).attr("data-url")) {
       $("#" + $(this).attr("data-target") + "").load($(this).attr("data-url"));
     }

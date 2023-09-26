@@ -24,6 +24,7 @@ class PostgresCrud extends Command
      */
     protected $description = 'Builder CRUD Laravel 8';
     protected $Field="";
+    protected $schema="";
     protected $arrayField=[];
     protected $primaryKey="";
 
@@ -61,6 +62,7 @@ class PostgresCrud extends Command
             $this->arrayField[] = "'$rs->column_name'";
         }
         $this->Field = rtrim($this->Field,",\n")."\n]";
+        $this->schema = $schema;
         if ($make == 'controller') {
             $this->controller($name,$results);
         }elseif ($make == 'model') {
@@ -116,6 +118,13 @@ class PostgresCrud extends Command
            $ModelDefaultValue
         ],
         $this->getStub('Controller'));
+
+        //insert record to table
+        DB::table("table_generator")->insert([
+            "schema_name"       => $this->schema,
+            "table_name"        => $name,
+            "table_element"     => "controller"
+        ]);
         $controler= ucfirst($name);
         file_put_contents(app_path("/Http/Controllers/{$controler}Controller.php"), $controllerTemplate);
      }
@@ -126,13 +135,20 @@ class PostgresCrud extends Command
            [$name, strtolower(($schema.".".$name)),$this->Field,$this->primaryKey],
            $this->getStub('Model')
         );
+
+        //insert record to table
+        DB::table("table_generator")->insert([
+            "schema_name"       => $this->schema,
+            "table_name"        => $name,
+            "table_element"     => "model"
+        ]);
         file_put_contents(app_path("Models/{$name}.php"), $modelTemplate);
      }
      
      protected function view($name,$table){
         $tableHeader = "";
         $name = strtolower($name);
-        $tableHeader .= sprintf("'%s'",implode(",",$this->arrayField));
+        $tableHeader .= implode(",",$this->arrayField);
         $modelTemplate = str_replace(
            ['{{ModelCol}}', '{{ModelName}}'],
            [$tableHeader, strtolower(($name))],
@@ -169,6 +185,13 @@ class PostgresCrud extends Command
             [$form, $name,$this->primaryKey],
             $this->getStub('v_form')
          );
+
+         //insert record to table
+        DB::table("table_generator")->insert([
+            "schema_name"       => $this->schema,
+            "table_name"        => $name,
+            "table_element"     => "view"
+        ]);
         file_put_contents($patch."/form.blade.php", $modelTemplate);
      }
 

@@ -15,7 +15,6 @@ class {{ModelName}}Controller extends Controller
     public $route   = "{{ModelRoute}}";
     
     public $param = {{$ModelValidation}};
-    public $defaultValue = {{$ModelDefaultValue}};
 
     function __construct()
     {
@@ -63,6 +62,8 @@ class {{ModelName}}Controller extends Controller
 
     public function create()
     {
+        $defaultValue =  array_fill_keys(array_keys($this->param), null);
+        $defaultValue["{{ModelPrimaryKey}}"] = null;
         ${{ModelGroup}} = (object)$this->defaultValue;
         return view($this->folder . '.form',compact('{{ModelGroup}}'));
     }

@@ -20,16 +20,19 @@ use Illuminate\Support\Facades\Session;
             <ul class="metismenu side-menu">
                 <li class="menu-title">Navigation</li>
                 <li>
-                    <a href="{{url('documentation/index')}}">INSTALASI</a>
+                    <a href="{{url('fidpro/documentation/index')}}">INSTALASI</a>
                 </li>
                 <li>
-                    <a href="{{url('documentation/basic')}}">FORM BUILDER</a>
+                    <a href="{{url('fidpro/documentation/basic')}}">FORM BUILDER</a>
                 </li>
                 <li>
-                    <a href="{{url('documentation/widget')}}">WIDGET</a>
+                    <a href="{{url('fidpro/documentation/widget')}}">WIDGET</a>
                 </li>
                 <li>
-                    <a href="{{url('documentation/bootstrap')}}">BOOTSTRAP COMPONENT</a>
+                    <a href="{{url('fidpro/documentation/bootstrap')}}">BOOTSTRAP COMPONENT</a>
+                </li>
+                <li>
+                    <a href="{{url('fidpro/documentation/form_creator')}}">MVC CREATOR</a>
                 </li>
             </ul>
 
