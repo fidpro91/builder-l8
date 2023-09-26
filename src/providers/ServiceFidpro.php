@@ -37,7 +37,7 @@ class ServiceFidpro extends ServiceProvider
 
         // Perform any other package specific bootstrapping here
         // Example:
-        // $this->loadMigrationsFrom(__DIR__.'/path/to/migrations');
+        $this->loadMigrationsFrom(__DIR__.'/../Migrations');
         // $this->loadViewsFrom(__DIR__.'/path/to/views', 'example');
 
         // Merge configuration if needed
