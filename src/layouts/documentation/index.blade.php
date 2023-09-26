@@ -23,17 +23,33 @@
                         <li>Setelah selesai instalasi ketikkan : 
                             <pre>php artisan vendor:publish --tag=fid-l8</pre>
                         </li>
+                        <li>setting koneksi database di file .env</li>
+                        <li>jalankan kan perintah "php artisan migrate"</li>
                         <li>
                             Buka file di direktori app/Providers/RouteServiceProvider.php.
-                            aktifkan variable namespace
+                            aktifkan variable namespace.
                             <pre>protected $namespace = 'App\\Http\\Controllers';</pre>
+                            lalu tambahkan route ke service builder seperti di bawah ini
+                            <pre>Route::prefix('builder')
+                ->namespace('builder')
+                ->group(base_path('routes/builder.php'));</pre>
                         </li>
                         <li>
-                            Tambahkan provider fidpro di direktori app/providers
+                            Tambahkan provider fidpro di direktori config/app.php
                             <pre>
                             'providers' => [
                                 ....
                                 App\Providers\FidproServiceProvider::class,
+                                ....
+                            ]
+                            </pre>
+                            Tambahkan aliases
+                            <pre>
+                            'aliases' => [
+                                ....
+                                "Widget"    => \fidpro\builder\Widget::class,
+                                "Create"    => \fidpro\builder\Create::class,
+                                "Bootstrap"    => \fidpro\builder\Bootstrap::class,
                                 ....
                             ]
                             </pre>
@@ -48,6 +64,9 @@
                                 }
                             </pre>
                         </li>
+                        <li>lalu ketikkan "composer dump-autoload"</li>
+                        <li>jalankan server "php artisan serve"</li>
+                        <li>buka halaman dengan web browser "localhost:8000/fidpro/documentation/index"</li>
                     </ul>
                 </li>
                 <li>BUILDER CRUD

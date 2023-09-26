@@ -64,7 +64,7 @@ class {{ModelName}}Controller extends Controller
     {
         $defaultValue =  array_fill_keys(array_keys($this->param), null);
         $defaultValue["{{ModelPrimaryKey}}"] = null;
-        ${{ModelGroup}} = (object)$this->defaultValue;
+        ${{ModelGroup}} = (object)$defaultValue;
         return view($this->folder . '.form',compact('{{ModelGroup}}'));
     }
 
