@@ -206,7 +206,11 @@ class Bootstrap
 
     public static function tabs($data)
     {
-        $html = '<ul class="nav nav-tabs mb-3">';
+        $classTabs = 'nav nav-tabs';
+        if (isset($data["classTabs"])) {
+            $classTabs = $data["classTabs"];
+        }
+        $html = '<ul class="'.$classTabs.'">';
         $i = 0;
         if (is_callable($data['tabs'])) {
             $data['tabs'] = call_user_func($data['tabs']);

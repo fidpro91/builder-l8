@@ -93,7 +93,7 @@ class Create
         return self::_set_output($input,'tes');
     }
 
-    private function set_input($type,$param)
+    private static function set_input($type,$param)
     {
         if (isset($param["id"])) {
             $id = $name = $param["id"];
@@ -310,7 +310,7 @@ class Create
         return self::_set_output($checkbox,$id);
     }
 
-    private function array_to_attr($attr) {
+    private static function array_to_attr($attr) {
         $ret = '';
         foreach ($attr as $key => $value) {
             $ret .= ' ' . htmlspecialchars($key, ENT_QUOTES) . '="' . htmlspecialchars($value) . '"';

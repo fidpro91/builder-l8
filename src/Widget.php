@@ -70,11 +70,15 @@ class Widget extends Create
         }
     }
 
-    public static function select2($name,$attr=null,$selec2=null)
+    public static function select2($name,$attr=null)
     {
         $form = self::dropDown($name,$attr)->render();
+        $select2="";
+        if (isset($attr["select2"])) {
+            $select2 = json_encode($attr["select2"], JSON_UNESCAPED_UNICODE | JSON_NUMERIC_CHECK);
+        }
         $form .= "<script>\n
-            $('#".$name."').select2();\n
+            $('#".$name."').select2($select2);\n
         </script>";
         return self::_set_output($form,$name);
     }
