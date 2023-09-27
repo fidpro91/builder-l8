@@ -23,7 +23,7 @@ Widget::_init(["select2"]);
         {!!
             Widget::select2("schema_name",[
                 "data" => []
-            ])->render("group","Nama Table");
+            ])->render("group","Nama Schema");
         !!}
         {!!
             Widget::select2("table_name",[
