@@ -207,29 +207,39 @@ class PostgresCrud extends Command
         $schema = $this->option('schema');
         $routes = $this->option('routes');
         $breadcrumbs = $this->option('breadcrumbs');
-        $this->info("
-            You call create:user command \n
-            with First Argument : {$name}
- 
-            with First Option : {$make} {$routes} {$breadcrumbs} {$schema}
-        ");
-
-        $this->generate_crud($make,$name,$schema);
-
-        if ($routes == 'true') {
-            File::append(base_path('routes/web.php'),
-            "
-            Route::get('" . (strtolower($name)) . "/get_dataTable','{$name}Controller@get_dataTable');
-            Route::resource('" . (strtolower($name)) . "', {$name}Controller::class);");
+        DB::beginTransaction();
+        try {
+            $this->generate_crud($make,$name,$schema);
+            if ($routes == 'true') {
+                File::append(base_path('routes/web.php'),
+                "
+                Route::get('" . (strtolower($name)) . "/get_dataTable','{$name}Controller@get_dataTable');
+                Route::resource('" . (strtolower($name)) . "', {$name}Controller::class);");
+            }
+    
+            if ($breadcrumbs == 'true') {
+                File::append(base_path('routes/breadcrumbs.php'),
+                '
+                Breadcrumbs::for("'. (strtolower($name)) .'", function (BreadcrumbTrail $trail) {
+                    $trail->parent("home");
+                    $trail->push("'. (strtolower($name)) .'", route("'. (strtolower($name)) .'.index"));
+                });');
+            }
+            DB::commit();
+            $resp = [
+                "code"      => "200",
+                "message"   => "ok",
+                "response"  => [
+                    "url"   => url($name)
+                ]
+            ];
+        } catch (\Exception $e) {
+            DB::rollBack();
+            $resp = [
+                "code"      => 201,
+                "message"   => $e->getMessage()
+            ];
         }
-
-        if ($breadcrumbs == 'true') {
-            File::append(base_path('routes/breadcrumbs.php'),
-            '
-            Breadcrumbs::for("'. (strtolower($name)) .'", function (BreadcrumbTrail $trail) {
-                $trail->parent("home");
-                $trail->push("'. (strtolower($name)) .'", route("'. (strtolower($name)) .'.index"));
-            });');
-        }
+       $this->info(json_encode($resp));
     }
 }
