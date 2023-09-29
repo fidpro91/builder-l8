@@ -107,6 +107,13 @@ class crudGenerator extends Command
         $this->getStub('Controller'));
         $controler= ucfirst($name);
         file_put_contents(app_path("/Http/Controllers/{$controler}Controller.php"), $controllerTemplate);
+
+        //insert record to table
+        DB::table("table_generator")->insert([
+            "schema_name"       => $this->schema,
+            "table_name"        => $name,
+            "table_element"     => "controller"
+        ]);
      }
 
      protected function model($name){
@@ -116,6 +123,12 @@ class crudGenerator extends Command
            $this->getStub('Model')
         );
         file_put_contents(app_path("Models/{$name}.php"), $modelTemplate);
+        //insert record to table
+        DB::table("table_generator")->insert([
+            "schema_name"       => $this->schema,
+            "table_name"        => $name,
+            "table_element"     => "model"
+        ]);
      }
      
      protected function view($name,$table){
@@ -160,6 +173,12 @@ class crudGenerator extends Command
             $this->getStub('v_form')
          );
         file_put_contents($patch."/form.blade.php", $modelTemplate);
+        //insert record to table
+        DB::table("table_generator")->insert([
+            "schema_name"       => $this->schema,
+            "table_name"        => $name,
+            "table_element"     => "view"
+        ]);
      }
 
     /**
@@ -173,29 +192,41 @@ class crudGenerator extends Command
         $make = $this->option('make');
         $routes = $this->option('routes');
         $breadcrumbs = $this->option('breadcrumbs');
-        $this->info("
-            You call create:user command \n
-            with First Argument : {$name}
- 
-            with First Option : {$make} {$routes} {$breadcrumbs}
-        ");
-
-        $this->generate_crud($make,$name);
-
-        if ($routes == 'true') {
-            File::append(base_path('routes/web.php'),
-            "
-            Route::get('" . (strtolower($name)) . "/get_dataTable','{$name}Controller@get_dataTable');
-            Route::resource('" . (strtolower($name)) . "', {$name}Controller::class);");
+        
+        DB::beginTransaction();
+        try {
+            $this->generate_crud($make,$name);
+    
+            if ($routes == 'true') {
+                File::append(base_path('routes/web.php'),
+                "
+                Route::get('" . (strtolower($name)) . "/get_dataTable','{$name}Controller@get_dataTable');
+                Route::resource('" . (strtolower($name)) . "', {$name}Controller::class);");
+            }
+    
+            if ($breadcrumbs == 'true') {
+                File::append(base_path('routes/breadcrumbs.php'),
+                '
+                Breadcrumbs::for("'. (strtolower($name)) .'", function (BreadcrumbTrail $trail) {
+                    $trail->parent("home");
+                    $trail->push("'. (strtolower($name)) .'", route("'. (strtolower($name)) .'.index"));
+                });');
+            }
+            DB::commit();
+            $resp = [
+                "code"      => "200",
+                "message"   => "ok",
+                "response"  => [
+                    "url"   => url($name)
+                ]
+            ];
+        } catch (\Exception $e) {
+            DB::rollBack();
+            $resp = [
+                "code"      => 201,
+                "message"   => $e->getMessage()
+            ];
         }
-
-        if ($breadcrumbs == 'true') {
-            File::append(base_path('routes/breadcrumbs.php'),
-            '
-            Breadcrumbs::for("'. (strtolower($name)) .'", function (BreadcrumbTrail $trail) {
-                $trail->parent("home");
-                $trail->push("'. (strtolower($name)) .'", route("'. (strtolower($name)) .'.index"));
-            });');
-        }
+        $this->info(json_encode($resp));
     }
 }
