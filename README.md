@@ -15,7 +15,7 @@
 
   ` Route::prefix('builder')
                 ->namespace('builder')
-                ->group(base_path('routes/builder.php'));'
+                ->group(base_path('routes/builder.php'));`
 
   Tambahkan provider fidpro di direktori config/app.php
 
