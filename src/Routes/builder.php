@@ -30,7 +30,6 @@ Route::post("build_element",function(Request $request){
             if ($value == 1) {
                 $param = [
                     'name' => $request->table_name,
-                    '--schema' => $request->schema_name,
                     '--make' => $make,
                     '--routes' => true,
                     '--breadcrumbs' => false,
@@ -38,7 +37,6 @@ Route::post("build_element",function(Request $request){
             }else {
                 $param = [
                     'name' => $request->table_name,
-                    '--schema' => $request->schema_name,
                     '--make' => $make,
                     '--routes' => false,
                     '--breadcrumbs' => false,

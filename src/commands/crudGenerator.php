@@ -110,7 +110,7 @@ class crudGenerator extends Command
 
         //insert record to table
         DB::table("table_generator")->insert([
-            "schema_name"       => $this->schema,
+            "schema_name"       => DB::connection()->getDatabaseName(),
             "table_name"        => $name,
             "table_element"     => "controller"
         ]);
@@ -125,7 +125,7 @@ class crudGenerator extends Command
         file_put_contents(app_path("Models/{$name}.php"), $modelTemplate);
         //insert record to table
         DB::table("table_generator")->insert([
-            "schema_name"       => $this->schema,
+            "schema_name"       => DB::connection()->getDatabaseName(),
             "table_name"        => $name,
             "table_element"     => "model"
         ]);
@@ -175,7 +175,7 @@ class crudGenerator extends Command
         file_put_contents($patch."/form.blade.php", $modelTemplate);
         //insert record to table
         DB::table("table_generator")->insert([
-            "schema_name"       => $this->schema,
+            "schema_name"       => DB::connection()->getDatabaseName(),
             "table_name"        => $name,
             "table_element"     => "view"
         ]);
