@@ -19,25 +19,16 @@
 
   Tambahkan provider fidpro di direktori config/app.php
 
-  `'providers' => [
-                                ....
-                                App\Providers\FidproServiceProvider::class,
-                                ....
-                            ]`
-
-  `'aliases' => [
-                                ....
-                                
-                                "Widget"    => \fidpro\builder\Widget::class,
-                                
-                                "Create"    => \fidpro\builder\Create::class,
-                                
-                                "Bootstrap"    => \fidpro\builder\Bootstrap::class,
-                                
-                                ....
-                            ]`
-
-
+  `App\Providers\FidproServiceProvider::class`
+  
+  tambkan inisialises : 
+  
+  `"Widget"    => \fidpro\builder\Widget::class,` 
+  
+  `"Create"    => \fidpro\builder\Create::class,` 
+  
+  `"Bootstrap"    => \fidpro\builder\Bootstrap::class,`
+          
   Buka file composer.json tambahkan script berikut : 
 
   `"autoload": {
