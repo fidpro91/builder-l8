@@ -3,7 +3,8 @@
         Form::button("Tambah",[
             "class" => "btn btn-primary add-form",
             "data-target" => "page_{{ModelName}}",
-            "data-url" => route("{{ModelName}}.create")
+            "data-url" => route("{{ModelName}}.create"),
+            "data-url-store"    => route("{{ModelName}}.store")
         ])
     !!}
 </div>
