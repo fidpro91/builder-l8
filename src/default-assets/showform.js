@@ -61,7 +61,7 @@ $(document).ready(function () {
     location.reload();
   });
 })
-function delete_row(row) {
+function delete_row(row,callback) {
   Swal.fire({
     title: 'Hapus Data?',
     text: "Data yang terhapus tidak dapat dikembalikan lagi",
@@ -84,7 +84,11 @@ function delete_row(row) {
         'success': function (data) {
           if (data.success) {
             Swal.fire("Sukses!", data.message, "success").then(() => {
+              if (callback && typeof callback === 'function') {
+                  callback(data);
+              } else {
                 location.reload();
+              }
             });
           } else {
             Swal.fire("Oopss...!!!", data.message, "error");

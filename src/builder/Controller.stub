@@ -50,7 +50,9 @@ class {{ModelName}}Controller extends Controller
             //if(auth()->user()->can('18-edit')){
                 $button .= Create::action("<i class=\"fas fa-trash\"></i>",[
                     "class"     => "btn btn-danger btn-xs",
-                    "onclick"   => "delete_row(this)",
+                    "onclick"   => "delete_row(this,function(){
+                        location.reload();
+                    })",
                     "x-token"   => csrf_token(),
                     "data-url"  => route($this->route.".destroy",$data->{{ModelPrimaryKey}}),
                 ]);
@@ -81,7 +83,8 @@ class {{ModelName}}Controller extends Controller
             {{ModelName}}::create($valid['data']);
             $resp = [
                 'success' => true,
-                'message' => 'Data Berhasil Disimpan!'
+                'message' => 'Data Berhasil Disimpan!',
+                'redirect'  => view($this->folder.".data")->render()
             ];
         }catch(\Exception $e){
             $resp = [
@@ -132,7 +135,8 @@ class {{ModelName}}Controller extends Controller
             $data->update($valid['data']);
             $resp = [
                 'success' => true,
-                'message' => 'Data Berhasil Diupdate!'
+                'message' => 'Data Berhasil Diupdate!',
+                'redirect'  => view($this->folder.".data")->render()
             ];
         }catch(\Exception $e){
             $resp = [

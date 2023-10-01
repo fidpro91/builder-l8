@@ -136,11 +136,16 @@ class crudGenerator extends Command
         $name = strtolower($name);
         $field = Schema::getColumnListing($name);
         $tableHeader .= sprintf("'%s'", implode("','", $field ));
-        $modelTemplate = str_replace(
-           ['{{ModelCol}}', '{{ModelName}}'],
-           [$tableHeader, strtolower(($name))],
-           $this->getStub('v_index')
-        );
+        $viewIndexTemplate = str_replace(
+            ['{{ModelName}}'],
+            [strtolower(($name))],
+            $this->getStub('v_index')
+         );
+         $viewDataTemplate =  str_replace(
+             ['{{ModelCol}}', '{{ModelName}}'],
+             [$tableHeader, strtolower(($name))],
+             $this->getStub('v_data')
+         );
         $patch = resource_path("views/{$name}");
 		if (is_dir($patch)) {
 			// delete_files($patch,TRUE);
@@ -149,7 +154,8 @@ class crudGenerator extends Command
 			rmdir($patch); 
 		}
         mkdir($patch);
-        file_put_contents($patch."/index.blade.php", $modelTemplate);
+        file_put_contents($patch."/index.blade.php", $viewIndexTemplate);
+        file_put_contents($patch."/data.blade.php", $viewDataTemplate);
         //Create view form
         $form =[];
         foreach($table as $x=>$rs){

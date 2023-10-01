@@ -149,10 +149,15 @@ class PostgresCrud extends Command
         $tableHeader = "";
         $name = strtolower($name);
         $tableHeader .= implode(",",$this->arrayField);
-        $modelTemplate = str_replace(
-           ['{{ModelCol}}', '{{ModelName}}'],
-           [$tableHeader, strtolower(($name))],
+        $viewIndexTemplate = str_replace(
+           ['{{ModelName}}'],
+           [strtolower(($name))],
            $this->getStub('v_index')
+        );
+        $viewDataTemplate =  str_replace(
+            ['{{ModelCol}}', '{{ModelName}}'],
+            [$tableHeader, strtolower(($name))],
+            $this->getStub('v_data')
         );
         $patch = resource_path("views/{$name}");
 		if (is_dir($patch)) {
@@ -162,7 +167,8 @@ class PostgresCrud extends Command
 			rmdir($patch); 
 		}
         mkdir($patch);
-        file_put_contents($patch."/index.blade.php", $modelTemplate);
+        file_put_contents($patch."/index.blade.php", $viewIndexTemplate);
+        file_put_contents($patch."/data.blade.php", $viewDataTemplate);
         //Create view form
         $form =[];
         foreach($table as $x=>$rs){
@@ -186,13 +192,14 @@ class PostgresCrud extends Command
             $this->getStub('v_form')
          );
 
+        file_put_contents($patch."/form.blade.php", $modelTemplate);
+
          //insert record to table
         DB::table("table_generator")->insert([
             "schema_name"       => $this->schema,
             "table_name"        => $name,
             "table_element"     => "view"
         ]);
-        file_put_contents($patch."/form.blade.php", $modelTemplate);
      }
 
     /**
