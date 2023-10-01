@@ -35,7 +35,7 @@ use \fidpro\builder\Create;
                         'success': function(data) {
                             if (data.success) {
                                 Swal.fire("Sukses!", data.message, "success").then(() => {
-                                    location.reload();
+                                    $("#page_{{ModelName}}").html(data.redirect);
                                 });
                             }else{
                                 Swal.fire("Oopss...!!", data.message, "error");
