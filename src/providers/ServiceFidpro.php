@@ -24,6 +24,7 @@ class ServiceFidpro extends ServiceProvider
                 __DIR__.'/../Libraries' => app_path('Libraries'),
                 __DIR__.'/../builder' => resource_path('stubs'),
                 __DIR__.'/../default-assets' => public_path('assets'),
+                __DIR__.'/../plugins' => public_path('plugins'),
                 __DIR__.'/../Helpers' => app_path('Helpers'),
                 __DIR__.'/../layouts' => resource_path('views/templates'),
             ], 'fidpro-l8');

@@ -20,34 +20,27 @@ class Widget extends Create
         foreach ($var as $key => $value) {
             switch ($value) {
                 case 'select2':
-                    echo '<link href="'.asset('assets/themes/assets/libs/select2/css/select2.min.css').'" rel="stylesheet" />
-                    <script src="'.asset('assets/themes/assets/libs/select2/js/select2.full.min.js').'"></script> ';
+                    echo '<link href="'.asset('plugins/select2/css/select2.min.css').'" rel="stylesheet" />
+                    <script src="'.asset('plugins/select2/js/select2.full.min.js').'"></script> ';
                     break;
                 case 'switcher':
-                    echo '<link href="'.asset('assets/js/bootstrap-switch/bootstrap-switch.min.css').'" rel="stylesheet" />
-                    <script src="'.asset('assets/js/bootstrap-switch/bootstrap-switch.min.js').'"></script>
-                    <style>
-                        .switch-container {
-                            display: inline-block !important;
-                            vertical-align: middle !important;
-                            margin-left: 10px; /* Sesuaikan margin sesuai kebutuhan */
-                        }
-                    </style>';
+                    echo '<link href="'.asset('plugins/bootstrap-switch/bootstrap-switch.min.css').'" rel="stylesheet" />
+                    <script src="'.asset('plugins/bootstrap-switch/bootstrap-switch.min.js').'"></script>';
                     break;
                 case 'datepicker':
-                    echo '<link href="'.asset('assets/themes/assets/libs/bootstrap-datepicker/bootstrap-datepicker.css').'" rel="stylesheet" type="text/css" />
-                    <script src="'.asset('assets/themes/assets/libs/bootstrap-datepicker/bootstrap-datepicker.min.js').'"></script> ';
+                    echo '<link href="'.asset('plugins/bootstrap-datepicker/bootstrap-datepicker.css').'" rel="stylesheet" type="text/css" />
+                    <script src="'.asset('plugins/bootstrap-datepicker/bootstrap-datepicker.min.js').'"></script> ';
                     break;
                 
                 case 'daterangepicker':
-                    echo '<link href="'.asset('assets/themes/assets/libs/bootstrap-daterangepicker/daterangepicker.css').'" rel="stylesheet" type="text/css"/>
-                    <script src="'.asset('assets/themes/assets/libs/moment/moment.js').'"></script> 
-                    <script src="'.asset('assets/themes/assets/libs/bootstrap-daterangepicker/daterangepicker.js').'"></script> ';
+                    echo '<link href="'.asset('plugins/bootstrap-daterangepicker/daterangepicker.css').'" rel="stylesheet" type="text/css"/>
+                    <script src="'.asset('plugins/moment/moment.js').'"></script> 
+                    <script src="'.asset('plugins/bootstrap-daterangepicker/daterangepicker.js').'"></script> ';
                     break;
                 case 'inputmask':
                     echo '
-                    <script src="'.asset('assets/themes/assets/libs/input-mask/dist/jquery.inputmask.js').'"></script> 
-                    <script src="'.asset('assets/themes/assets/libs/input-mask/dist/bindings/inputmask.binding.js').'"></script>'."\n".
+                    <script src="'.asset('plugins/input-mask/dist/jquery.inputmask.js').'"></script> 
+                    <script src="'.asset('plugins/input-mask/dist/bindings/inputmask.binding.js').'"></script>'."\n".
                     '<script>
                     Inputmask.extendAliases({
                         "IDR": {

@@ -209,6 +209,7 @@ class Create
 
     public static function radio($id, $attr)
     {
+        $defaultValue=($attr["value"]??null);
         if (isset($attr['data']['model'])) {
             $data = $attr['data'];
             $model = "\\App\\Models\\" . $data['model'];
@@ -227,14 +228,21 @@ class Create
             }
             $dataDropdown = [];
             foreach ($dataSelect as $key => $value) {
+                $checked = false;
                 if (isset($data['column'])) {
+                    if ($defaultValue == $value->{$data['column'][0]}) {
+                        $checked = 'checked';
+                    }
                     $dataDropdown[] = '<div class="custom-control custom-radio" style="display: inline-block;">
-                        <input type="radio" id="'.$id.$key.'" name="'.$id.'" class="custom-control-input" value="'. $value->{$data['column'][0]} .'">
+                        <input type="radio" id="'.$id.$key.'" name="'.$id.'" class="custom-control-input" value="'. $value->{$data['column'][0]} .'" '.$checked.'>
                         <label class="custom-control-label" for="'.$id.$key.'">'.$value->{$data['column'][1]}.'</label>
                     </div>';
                 } else {
+                    if ($defaultValue == $value) {
+                        $checked = 'checked';
+                    }
                     $dataDropdown[] = '<div class="custom-control custom-radio" style="display: inline-block;">
-                        <input type="radio" id="'.$id.$key.'" name="'.$id.'" class="custom-control-input" value="'. $value.'">
+                        <input type="radio" id="'.$id.$key.'" name="'.$id.'" class="custom-control-input" value="'. $value.'" '.$checked.'>
                         <label class="custom-control-label" for="'.$id.$key.'">'.$value.'</label>
                     </div>';
                 }
@@ -242,14 +250,21 @@ class Create
         }else{
             $data = $attr['data'];
             foreach ($data as $key => $value) {
+                $checked = false;
                 if (is_array($value)) {
+                    if ($defaultValue == $key) {
+                        $checked = 'checked';
+                    }
                     $dataDropdown[] = '<div class="custom-control custom-radio" style="display: inline-block;">
-                        <input type="radio" id="'.$id.$key.'" name="'.$id.'" class="custom-control-input" value="'.$key.'">
+                        <input type="radio" id="'.$id.$key.'" name="'.$id.'" class="custom-control-input" value="'.$key.'" '.$checked.'>
                         <label class="custom-control-label" for="'.$id.$key.'">'.current($value).'</label>
                     </div>';
                 } else {
+                    if ($defaultValue == $value) {
+                        $checked = 'checked';
+                    }
                     $dataDropdown[] = '<div class="custom-control custom-radio" style="display: inline-block;">
-                        <input type="radio" id="'.$id.$key.'" name="'.$id.'" class="custom-control-input" value="'. $value.'">
+                        <input type="radio" id="'.$id.$key.'" name="'.$id.'" class="custom-control-input" value="'. $value.'" '.$checked.'>
                         <label class="custom-control-label" for="'.$id.$key.'">'.$value.'</label>
                     </div>';
                 }
