@@ -60,11 +60,17 @@ class Create
 
     public static function render($type = null,$label = null) {
         $render =  static::$form;
-        if($type == 'group') {
+        if($type == 'group' || $type == 'vertical') {
             $render = '<div class="form-group">
                 <label for="' . static::$formId . '">' .($label??static::$formLabel). '</label>';
             $render .= static::$form."</div>";
-
+        }elseif ($type == 'horizontal') {
+            $render = '<div class="form-group mt-4 row">
+                <label for="' . static::$formId . '" class="col-md-3 col-form-label">' .($label??static::$formLabel). '</label>';
+                
+            $render .= '<div class="col-md-9">'.static::$form."
+                        </div>
+                        </div>";
         }
         return $render;
     }
