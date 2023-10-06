@@ -29,14 +29,16 @@ Route::post("build_element",function(Request $request){
             $command = "build:crud";
             if ($value == 1) {
                 $param = [
-                    'name' => $request->table_name,
+                    'name' => ucfirst($request->table_name),
+                    '--schema' => $request->schema_name,
                     '--make' => $make,
                     '--routes' => true,
                     '--breadcrumbs' => false,
                 ];
             }else {
                 $param = [
-                    'name' => $request->table_name,
+                    'name' => ucfirst($request->table_name),
+                    '--schema' => $request->schema_name,
                     '--make' => $make,
                     '--routes' => false,
                     '--breadcrumbs' => false,
@@ -46,7 +48,7 @@ Route::post("build_element",function(Request $request){
             $command = "postgres:crud";
             if ($value == 1) {
                 $param = [
-                    'name' => $request->table_name,
+                    'name' => ucfirst($request->table_name),
                     '--schema' => $request->schema_name,
                     '--make' => $make,
                     '--routes' => true,
@@ -54,7 +56,7 @@ Route::post("build_element",function(Request $request){
                 ];
             }else {
                 $param = [
-                    'name' => $request->table_name,
+                    'name' => ucfirst($request->table_name),
                     '--schema' => $request->schema_name,
                     '--make' => $make,
                     '--routes' => false,
@@ -64,13 +66,7 @@ Route::post("build_element",function(Request $request){
         }
         Artisan::call($command, $param);
     }
-    return response()->json([
-        "code"      => 200,
-        "message"   => "Form element berhasil dibuat",
-        "response"  => [
-            "url"   => url($request->table_name)
-        ]
-    ]);
+    return Artisan::output();
 });
 
 Route::get("get_schema",function(){

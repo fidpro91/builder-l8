@@ -324,7 +324,7 @@ class Bootstrap
         echo $html . "\n" ."\n".$script;
     }
 
-    private function array_to_attr($attr)
+    private static function array_to_attr($attr)
     {
         $ret = '';
         foreach ($attr as $key => $value) {
@@ -333,7 +333,7 @@ class Bootstrap
         return trim($ret);
     }
 
-    public function modal($id, $data)
+    public static function modal($id, $data)
     {
 
         $attr = null;
@@ -360,7 +360,7 @@ class Bootstrap
         echo $txt;
     }
 
-    public function modal_close($id, $data)
+    public static function modal_close($id, $data)
     {
         $autohide = true;
         if (!empty($data['body']['content'])) {

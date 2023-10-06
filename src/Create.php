@@ -58,6 +58,38 @@ class Create
         return new static;
     }
 
+    public static function withIcon ($data){
+        
+        $prepend=$append="";
+        if (!empty($data["prepend"])) {
+            $prepend = '<div class="input-group-prepend"><span class="input-group-text">'.$data["prepend"].'</span></div>';
+        }
+        if (!empty($data["append"])) {
+            $append = '<div class="input-group-append"><span class="input-group-text">'.$data["append"].'</span></div>';
+        }
+        static::$form = "<div class=\"input-group mb-3\">
+        $prepend \n ".static::$form." \n $append
+        </div>";
+
+        return new static;
+    }
+
+    public static function withButton ($data){
+        
+        $prepend=$append="";
+        if (!empty($data["prepend"])) {
+            $prepend = '<div class="input-group-prepend">'.$data["prepend"].'</div>';
+        }
+        if (!empty($data["append"])) {
+            $append = '<div class="input-group-append">'.$data["append"].'</div>';
+        }
+        static::$form = "<div class=\"input-group mb-3\">
+        $prepend \n ".static::$form." \n $append
+        </div>";
+
+        return new static;
+    }
+
     public static function render($type = null,$label = null) {
         $render =  static::$form;
         if($type == 'group' || $type == 'vertical') {

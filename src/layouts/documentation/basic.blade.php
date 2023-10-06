@@ -42,6 +42,53 @@ use \fidpro\builder\Bootstrap;
                     !!}
                     @endverbatim
                     </pre>
+                    {!! 
+                        Create::input("emp_name",[
+                            "required"      => "true"
+                        ])
+                        ->withIcon([
+                            "prepend"       => '<i class="far fa-user"></i>',
+                            "append"        => '<i class="far fa-user"></i>'
+                        ])
+                        ->render("horizontal"); 
+                    !!}
+                    <pre>@verbatim
+                        {!! 
+                            Create::input("emp_name",[
+                                "value"         => $employee->emp_name,
+                                "required"      => "true"
+                            ])
+                            ->withIcon([
+                                "prepend"       => '<i class="far fa-user"></i>',
+                                "append"        => '<i class="far fa-user"></i>'
+                            ])
+                            ->render("horizontal"); 
+                        !!}
+                    @endverbatim
+                    </pre>
+                    {!! 
+                        Create::input("emp_name",[
+                            "value"         => $employee->emp_name,
+                            "required"      => "true"
+                        ])
+                        ->withButton([
+                            "append"       => '<button class="btn btn-success" type="button"><i class="ti-search"></i></button>',
+                        ])
+                        ->render("horizontal"); 
+                    !!}
+                    <pre>@verbatim
+                        {!! 
+                            Create::input("emp_name",[
+                                "value"         => $employee->emp_name,
+                                "required"      => "true"
+                            ])
+                            ->withButton([
+                                "append"       => '<button class="btn btn-success" type="button"><i class="ti-search"></i></button>',
+                            ])
+                            ->render("horizontal"); 
+                        !!}
+                    @endverbatim
+                    </pre>
                 </div>
             </div>
         </div>
