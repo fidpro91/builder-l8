@@ -180,7 +180,7 @@ class Widget extends Create
         return self::_set_output($form,$name);
     }
 
-    public static function ckeditor($name,$attr)
+    public static function ckeditor($name,$attr = null)
     {
         $form      = self::text($name,$attr)->render();
         $form      .= "<script>CKEDITOR.replace('$name');</script>";
