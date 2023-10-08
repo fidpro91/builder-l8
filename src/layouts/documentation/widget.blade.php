@@ -222,11 +222,11 @@ Widget::_init(["select2","daterangepicker","datepicker","inputmask","switcher","
                 <div class="card-body">
                     <pre>Widget::_init(["ckeditor"]);</pre>
                     {!! 
-                        Widget::ckeditor("alamat_domisili"])->render("group"); 
+                        Widget::ckeditor("alamat_domisili")->render("group"); 
                     !!}
                     <pre>@verbatim
                     {!! 
-                        Widget::ckeditor("alamat_domisili"])->render("group"); 
+                        Widget::ckeditor("alamat_domisili")->render("group"); 
                     !!}
                     @endverbatim
                     </pre>

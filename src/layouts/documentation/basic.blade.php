@@ -55,7 +55,6 @@ use \fidpro\builder\Bootstrap;
                     <pre>@verbatim
                         {!! 
                             Create::input("emp_name",[
-                                "value"         => $employee->emp_name,
                                 "required"      => "true"
                             ])
                             ->withIcon([
@@ -68,7 +67,6 @@ use \fidpro\builder\Bootstrap;
                     </pre>
                     {!! 
                         Create::input("emp_name",[
-                            "value"         => $employee->emp_name,
                             "required"      => "true"
                         ])
                         ->withButton([
@@ -79,7 +77,6 @@ use \fidpro\builder\Bootstrap;
                     <pre>@verbatim
                         {!! 
                             Create::input("emp_name",[
-                                "value"         => $employee->emp_name,
                                 "required"      => "true"
                             ])
                             ->withButton([
