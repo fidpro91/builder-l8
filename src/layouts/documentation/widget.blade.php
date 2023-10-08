@@ -3,7 +3,7 @@
 <?php
 use \fidpro\builder\Create;
 use \fidpro\builder\Widget;
-Widget::_init(["select2","daterangepicker","datepicker","inputmask","switcher"]);
+Widget::_init(["select2","daterangepicker","datepicker","inputmask","switcher","ckeditor"]);
 ?>
 <div class="col-md-12">
     <p>
@@ -204,6 +204,29 @@ Widget::_init(["select2","daterangepicker","datepicker","inputmask","switcher"])
                                 }
                             '
                         ])->render('group')
+                    !!}
+                    @endverbatim
+                    </pre>
+                </div>
+            </div>
+        </div>
+        <div class="card mb-0">
+            <div class="card-header" id="heading6">
+                <h5 class="m-0">
+                    <a href="#collapse6" class="text-dark" data-toggle="collapse" aria-expanded="false" aria-controls="collapseOne">
+                        CK EDITOR
+                    </a>
+                </h5>
+            </div>
+            <div id="collapse6" class="collapse" aria-labelledby="heading6" data-parent="#accordion">
+                <div class="card-body">
+                    <pre>Widget::_init(["ckeditor"]);</pre>
+                    {!! 
+                        Widget::ckeditor("alamat_domisili"])->render("group"); 
+                    !!}
+                    <pre>@verbatim
+                    {!! 
+                        Widget::ckeditor("alamat_domisili"])->render("group"); 
                     !!}
                     @endverbatim
                     </pre>

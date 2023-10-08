@@ -29,6 +29,10 @@ class ServiceFidpro extends ServiceProvider
                 __DIR__.'/../layouts' => resource_path('views/templates'),
             ], 'fidpro-l8');
 
+            $this->publishes([
+                __DIR__.'/../src' => base_path('vendor/fidpro/builder/src'),
+            ], 'autoload');
+
             // Copy the files inside the commands folder to app/Console/Commands
             $filesystem->copy(__DIR__.'/../core/Controller.php', app_path('Http/Controllers/Controller.php'), true);
             $filesystem->copyDirectory(__DIR__.'/../Commands', app_path('Console/Commands'));
@@ -44,6 +48,21 @@ class ServiceFidpro extends ServiceProvider
 
         // Merge configuration if needed
         // $this->mergeConfigFrom(__DIR__.'/config/example.php', 'example');
+    }
+
+    protected function publishConfiguration()
+    {
+        $configPath = config_path('app.php');
+
+        file_put_contents($configPath, str_replace(
+            "'aliases' => [",
+            "'aliases' => [
+                'Widget'        => \fidpro\builder\Widget::class,
+                'Create'        => \fidpro\builder\Create::class,
+                'Bootstrap'     => \fidpro\builder\Bootstrap::class,
+            ]",
+            file_get_contents($configPath)
+        ));
     }
 
     private function shouldBePublished()

@@ -37,6 +37,10 @@ class Widget extends Create
                     <script src="'.asset('plugins/moment/moment.js').'"></script> 
                     <script src="'.asset('plugins/bootstrap-daterangepicker/daterangepicker.js').'"></script> ';
                     break;
+                case 'ckeditor':
+                    echo '
+                    <script src="'.asset('plugins/ckeditor/ckeditor.js').'"></script> ';
+                    break;
                 case 'inputmask':
                     echo '
                     <script src="'.asset('plugins/input-mask/dist/jquery.inputmask.js').'"></script> 
@@ -76,7 +80,7 @@ class Widget extends Create
         return self::_set_output($form,$name);
     }
 
-    private static function _set_output ($form,$name){
+    private function _set_output ($form,$name){
         static::$form = $form;
         static::$formId = $name;
         static::$formLabel = Str::ucfirst(Str::replace('_', ' ', $name));
@@ -173,6 +177,13 @@ class Widget extends Create
         }
         $form     .= "</script>\n";
 
+        return self::_set_output($form,$name);
+    }
+
+    public static function ckeditor($name,$attr)
+    {
+        $form      = self::text($name,$attr)->render();
+        $form      .= "<script>CKEDITOR.replace('$name');</script>";
         return self::_set_output($form,$name);
     }
 }
