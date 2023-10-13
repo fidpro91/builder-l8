@@ -106,7 +106,13 @@ class Bootstrap
 
     public static function DataTable($name, $atrr, $data)
     {
-        $html = '<table id="' . $name . '" ' . self::array_to_attr($atrr) . '>';
+        $html = '
+        <style>
+            tfoot {
+                display: table-header-group;
+            }
+        </style>'."\n".'
+        <table id="' . $name . '" ' . self::array_to_attr($atrr) . '>';
         $thead = "<thead>\n<tr>";
         foreach ($data['raw'] as $key => $val) {
             if (is_array($val)) {
@@ -116,6 +122,19 @@ class Bootstrap
             }
         }
         $thead .= "</tr>\n</thead>";
+
+        $tfoot = "<tfoot>\n<tr>";
+        $filter="";
+        if (!empty($data["filterColumn"])) {
+            $filterColumn = $data["filterColumn"];
+            foreach ($filterColumn as $key => $row) {
+                $tfoot .= "<td>$row</td>";
+                $filter .= "d.$key = $('#$key').val();\n";
+            }
+            $tfoot .= "</tr></tfoot>";
+            $thead = $thead."\n".$tfoot;
+        }
+
         //set body
         $tbody = "<tbody>\n";
         $tbody .= "</tbody>";
@@ -173,8 +192,6 @@ class Bootstrap
             $varSetting .= $key .":". $settinger;
         }
         $varSetting = rtrim($varSetting,",\n");
-
-        $filter = "";
         if (isset($data["filter"])) {
             foreach ($data["filter"] as $key => $value) {
                 $filter .= "d.".$key." = ".$value.";\n";
@@ -185,6 +202,7 @@ class Bootstrap
         <script>
         var '.$variableTable.';
         $(document).ready(function() {
+            var filterCol = $(\'table#'.$name.' tfoot\').find("input, select");
             '.$variableTable.'  = $("#'.$name.'").DataTable({
                 "ajax" : {
                         "url":"'.url($data["url"]).'",
@@ -196,6 +214,10 @@ class Bootstrap
                     '.$column.'
                 ],
                 '.$varSetting.'
+            });
+
+            $(\'table#'.$name.' tfoot\').find("input, select").on("change",function(){
+                '.$variableTable.'.draw();
             });
         })
         </script>
@@ -324,7 +346,7 @@ class Bootstrap
         echo $html . "\n" ."\n".$script;
     }
 
-    private static function array_to_attr($attr)
+    public static function array_to_attr($attr)
     {
         $ret = '';
         foreach ($attr as $key => $value) {
