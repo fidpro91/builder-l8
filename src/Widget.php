@@ -186,4 +186,17 @@ class Widget extends Create
         $form      .= "<script>CKEDITOR.replace('$name');</script>";
         return self::_set_output($form,$name);
     }
+
+    public static function switchery($name,$attr = null)
+    {
+        $attr["type"]   = "checkbox";
+        if (empty($attr["checked"])) {
+            unset($attr["checked"]);
+        }
+        $form      = self::input($name,$attr)->render();
+        $form      .= '<script>
+            new Switchery($("#'.$name.'")[0],$("#'.$name.'").data())
+        </script>';
+        return self::_set_output($form,$name);
+    }
 }

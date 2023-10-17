@@ -2,6 +2,7 @@
  
 namespace fidpro\builder;
 
+use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Str;
 
 /**
@@ -174,20 +175,23 @@ class Create
     {
         if (isset($attr['data']['model'])) {
             $data = $attr['data'];
-            $model = "\\App\\Models\\" . $data['model'];
-            $filter = $data['filter'] ?? [];
-            if (isset($data['custom'])) {
-                $model = new $model;
-                $dataSelect = $model->{$data['custom']}($filter);
-            } else {
-                if (isset($data['filter'])) {
-
-                    $dataSelect = $model::where($data['filter'])
-                    ->get();
+            $dataSelect = Cache::rememberForever($attr['data']['model'], function () use ($data) {
+                // Jika data tidak ada di cache, ambil dari model dan simpan ke cache
+                $model = "\\App\\Models\\" . $data['model'];
+                $filter = $data['filter'] ?? [];
+                if (isset($data['custom'])) {
+                    $model = new $model;
+                    $dataSelect = $model->{$data['custom']}($filter);
                 } else {
-                    $dataSelect = $model::all();
+                    if (isset($data['filter'])) {
+                        $dataSelect = $model::where($data['filter'])
+                        ->get();
+                    } else {
+                        $dataSelect = $model::all();
+                    }
                 }
-            }
+                return $dataSelect;
+            });
             $dataDropdown = [];
             foreach ($dataSelect as $key => $value) {
                 if (isset($data['column'])) {
@@ -250,20 +254,23 @@ class Create
         $defaultValue=($attr["value"]??null);
         if (isset($attr['data']['model'])) {
             $data = $attr['data'];
-            $model = "\\App\\Models\\" . $data['model'];
-            $filter = $data['filter'] ?? [];
-            if (isset($data['custom'])) {
-                $model = new $model;
-                $dataSelect = $model->{$data['custom']}($filter);
-            } else {
-                if (isset($data['filter'])) {
-
-                    $dataSelect = $model::where($data['filter'])
-                    ->get();
+            $dataSelect = Cache::rememberForever($attr['data']['model'], function () use ($data) {
+                // Jika data tidak ada di cache, ambil dari model dan simpan ke cache
+                $model = "\\App\\Models\\" . $data['model'];
+                $filter = $data['filter'] ?? [];
+                if (isset($data['custom'])) {
+                    $model = new $model;
+                    $dataSelect = $model->{$data['custom']}($filter);
                 } else {
-                    $dataSelect = $model::all();
+                    if (isset($data['filter'])) {
+                        $dataSelect = $model::where($data['filter'])
+                        ->get();
+                    } else {
+                        $dataSelect = $model::all();
+                    }
                 }
-            }
+                return $dataSelect;
+            });
             $dataDropdown = [];
             foreach ($dataSelect as $key => $value) {
                 $checked = false;
@@ -316,19 +323,23 @@ class Create
     {
         if (isset($attr['data']['model'])) {
             $data = $attr['data'];
-            $model = "\\App\\Models\\" . $data['model'];
-            $filter = $data['filter'] ?? [];
-            if (isset($data['custom'])) {
-                $model = new $model;
-                $dataSelect = $model->{$data['custom']}($filter);
-            } else {
-                if (isset($data['filter'])) {
-                    $dataSelect = $model::where($data['filter'])
-                    ->get();
+            $dataSelect = Cache::rememberForever($attr['data']['model'], function () use ($data) {
+                // Jika data tidak ada di cache, ambil dari model dan simpan ke cache
+                $model = "\\App\\Models\\" . $data['model'];
+                $filter = $data['filter'] ?? [];
+                if (isset($data['custom'])) {
+                    $model = new $model;
+                    $dataSelect = $model->{$data['custom']}($filter);
                 } else {
-                    $dataSelect = $model::all();
+                    if (isset($data['filter'])) {
+                        $dataSelect = $model::where($data['filter'])
+                        ->get();
+                    } else {
+                        $dataSelect = $model::all();
+                    }
                 }
-            }
+                return $dataSelect;
+            });
             $dataDropdown = [];
             foreach ($dataSelect as $key => $value) {
                 if (isset($data['column'])) {

@@ -13,14 +13,16 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('table_generator', function (Blueprint $table) {
-            $table->increments('id');
-            $table->string('schema_name', 50)->nullable();
-            $table->string('table_name', 100);
-            $table->string('table_element', 50);
-            $table->timestamp('created_at', 6)->nullable()->useCurrent();
-            $table->timestamp('updated_at')->nullable()->useCurrent();
-        });
+        if (!Schema::hasTable('table_generator')) {
+            Schema::create('table_generator', function (Blueprint $table) {
+                $table->increments('id');
+                $table->string('schema_name', 50)->nullable();
+                $table->string('table_name', 100);
+                $table->string('table_element', 50);
+                $table->timestamp('created_at', 6)->nullable()->useCurrent();
+                $table->timestamp('updated_at')->nullable()->useCurrent();
+            });
+        }
     }
 
     /**
