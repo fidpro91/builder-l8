@@ -44,7 +44,7 @@ class PostgresCrud extends Command
 
     protected function generate_crud($make,$name,$schema){
         $results = DB::select("
-        SELECT c.table_schema,c.table_name,tc.constraint_type,c.column_name,c.column_default,
+        SELECT DISTINCT c.table_schema,c.table_name,tc.constraint_type,c.column_name,c.column_default,
         c.is_nullable,c.data_type,c.character_maximum_length
         FROM information_schema.columns AS c
         LEFT JOIN information_schema.constraint_column_usage AS ccu ON ccu.column_name = c.column_name AND ccu.table_schema = c.table_schema and ccu.table_name = c.table_name
@@ -235,9 +235,9 @@ class PostgresCrud extends Command
             DB::commit();
             $resp = [
                 "code"      => "200",
-                "message"   => "ok",
+                "message"   => "Element berhasil di bangun",
                 "response"  => [
-                    "url"   => url($name)
+                    "url"   => url(strtolower($name))
                 ]
             ];
         } catch (\Exception $e) {
