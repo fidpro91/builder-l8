@@ -1,4 +1,5 @@
 <?php
+
 namespace fidpro\builder\providers;
 
 use Illuminate\Support\ServiceProvider;
@@ -6,8 +7,6 @@ use Illuminate\Filesystem\Filesystem;
 
 class ServiceFidpro extends ServiceProvider
 {
-    protected static $published = false;
-
     public function register()
     {
         // Daftarkan service atau binding di sini
@@ -15,7 +14,7 @@ class ServiceFidpro extends ServiceProvider
 
     public function boot(Filesystem $filesystem)
     {
-        if ($this->app->runningInConsole() && !$this->shouldBePublished()) {
+        if ($this->app->runningInConsole() && !$this->hasRunBefore()) {
             // Publish the commands folder to app/Console/Commands
             $this->publishes([
                 __DIR__.'/../Commands' => app_path('Console/Commands'),
@@ -27,6 +26,7 @@ class ServiceFidpro extends ServiceProvider
                 __DIR__.'/../plugins' => public_path('plugins'),
                 __DIR__.'/../Helpers' => app_path('Helpers'),
                 __DIR__.'/../layouts' => resource_path('views/templates'),
+                __DIR__.'/../config/fidproConf.php' => config_path('fidproConf.php'),
             ], 'fidpro-l8');
 
             $this->publishes([
@@ -50,25 +50,8 @@ class ServiceFidpro extends ServiceProvider
         // $this->mergeConfigFrom(__DIR__.'/config/example.php', 'example');
     }
 
-    protected function publishConfiguration()
+    private function hasRunBefore()
     {
-        $configPath = config_path('app.php');
-
-        file_put_contents($configPath, str_replace(
-            "'aliases' => [",
-            "'aliases' => [
-                'Widget'        => \fidpro\builder\Widget::class,
-                'Create'        => \fidpro\builder\Create::class,
-                'Bootstrap'     => \fidpro\builder\Bootstrap::class,
-            ]",
-            file_get_contents($configPath)
-        ));
-    }
-
-    private function shouldBePublished()
-    {
-        return static::$published;
+        return config('fidproConf.running', false);
     }
 }
-
-?>

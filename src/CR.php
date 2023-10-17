@@ -23,7 +23,8 @@ class CR extends Bootstrap
         if ($type == 'data') {
             $dataSelect = $data;
         }elseif ($type == "model") {
-            $dataSelect = Cache::rememberForever($data['model'], function () use ($data) {
+            $key= $data['model'].'-'.base64_encode(json_encode($data['filter'] ?? []));
+            $dataSelect = Cache::rememberForever($key, function () use ($data) {
                 // Jika data tidak ada di cache, ambil dari model dan simpan ke cache
                 $model = "\\App\\Models\\" . $data['model'];
                 $filter = $data['filter'] ?? [];

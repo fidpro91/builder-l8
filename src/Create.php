@@ -175,7 +175,8 @@ class Create
     {
         if (isset($attr['data']['model'])) {
             $data = $attr['data'];
-            $dataSelect = Cache::rememberForever($attr['data']['model'], function () use ($data) {
+            $key= $attr['data']['model'].'-'.base64_encode(json_encode($data['filter'] ?? []));
+            $dataSelect = Cache::rememberForever($key, function () use ($data) {
                 // Jika data tidak ada di cache, ambil dari model dan simpan ke cache
                 $model = "\\App\\Models\\" . $data['model'];
                 $filter = $data['filter'] ?? [];
@@ -254,7 +255,8 @@ class Create
         $defaultValue=($attr["value"]??null);
         if (isset($attr['data']['model'])) {
             $data = $attr['data'];
-            $dataSelect = Cache::rememberForever($attr['data']['model'], function () use ($data) {
+            $key= $attr['data']['model'].'-'.base64_encode(json_encode($data['filter'] ?? []));
+            $dataSelect = Cache::rememberForever($key, function () use ($data) {
                 // Jika data tidak ada di cache, ambil dari model dan simpan ke cache
                 $model = "\\App\\Models\\" . $data['model'];
                 $filter = $data['filter'] ?? [];
@@ -323,7 +325,8 @@ class Create
     {
         if (isset($attr['data']['model'])) {
             $data = $attr['data'];
-            $dataSelect = Cache::rememberForever($attr['data']['model'], function () use ($data) {
+            $key= $attr['data']['model'].'-'.base64_encode(json_encode($data['filter'] ?? []));
+            $dataSelect = Cache::rememberForever($key, function () use ($data) {
                 // Jika data tidak ada di cache, ambil dari model dan simpan ke cache
                 $model = "\\App\\Models\\" . $data['model'];
                 $filter = $data['filter'] ?? [];

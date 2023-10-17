@@ -23,11 +23,9 @@ class Controller extends BaseController
         }
         $data['pageName']   = ucwords(str_replace('_',' ',$page));
         $menu='';
-        if(!Cache::has('menuCache')){
-            $menu = Servant::get_menu();
-            Cache::add('menuCache', $menu, 60);
-        }
-        $menu = Cache::store('file')->get('menuCache');
+        $menu = Cache::remember('menuCache_auth_',60, function () {
+            return Servant::get_menu(0,1);
+        });
         $data['menu']       = $menu;
         // $data['profil']       = $this->get_profil();
         return view($view,$data);
