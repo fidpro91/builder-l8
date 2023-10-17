@@ -1,5 +1,5 @@
 <?php
 
 return [
-    'running' => true,
+    'running' => false,
 ];

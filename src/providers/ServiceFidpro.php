@@ -39,6 +39,7 @@ class ServiceFidpro extends ServiceProvider
             $filesystem->copyDirectory(__DIR__.'/../Libraries', app_path('Libraries'));
             $filesystem->copyDirectory(__DIR__.'/../builder', resource_path('stubs'));
             $filesystem->copyDirectory(__DIR__.'/../layouts', resource_path('views/templates'));
+            config(['fidproConf.running' => true]);
         }
 
         // Perform any other package specific bootstrapping here
