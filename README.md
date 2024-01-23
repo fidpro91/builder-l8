@@ -4,7 +4,7 @@
 -   Buka terminal atau command prompt ketikkan :
 `composer require fidpro/builder`
  -   Setelah selesai instalasi ketikkan :
-    `php artisan vendor:publish --tag=fid-l8`
+    `php artisan vendor:publish --tag=fidpro-l8`
 -   setting koneksi database di file .env
 -   jalankan kan perintah `php artisan migrate`
 -   Buka file di direktori app/Providers/RouteServiceProvider.php. aktifkan variable namespace
