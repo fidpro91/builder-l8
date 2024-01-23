@@ -14,14 +14,14 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/pdfmake.min.js" charset="utf-8"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/vfs_fonts.js" charset="utf-8"></script>
 
-<script src="{{ asset('assets/themes')}}/assets/libs/toastr/toastr.min.js"></script>
+<script src="{{ asset('plugins/toastr/toastr.min.js')}}"></script>
 <!-- Sweet Alerts js -->
-<script src="{{ asset('assets/themes')}}/assets/libs/sweetalert2/sweetalert2.min.js"></script>
+<script src="{{ asset('plugins/sweetalert2/sweetalert2.min.js')}}"></script>
 <!-- knob plugin -->
 <script src="{{ asset('assets/themes')}}/assets/libs/jquery-knob/jquery.knob.min.js"></script>
-<script type="text/javascript" src="{{ asset('assets/showform.js') }}"></script>
+<script type="text/javascript" src="{{ asset('plugins/showform.js') }}"></script>
 <!-- validation -->
-<script type="text/javascript" src="{{ asset('assets/Parsley.js-2.9.2/dist/parsley.js') }}"></script>
+<script type="text/javascript" src="{{ asset('plugins/Parsley.js-2.9.2/dist/parsley.js') }}"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.1/Chart.min.js" charset="utf-8"></script>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.css" />
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>

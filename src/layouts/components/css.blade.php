@@ -1,7 +1,7 @@
 <!-- App favicon -->
 <link rel="shortcut icon" href="{{ asset('assets/themes')}}/assets/images/favicon.ico">
 <!-- Notification css (Toastr) -->
-<link href="{{ asset('assets/themes')}}/assets/libs/toastr/toastr.min.css" rel="stylesheet" type="text/css" />
+<link href="{{ asset('plugins/toastr/toastr.min.css')}}" rel="stylesheet" type="text/css" />
 
 <!--Morris Chart-->
 <!-- <link rel="stylesheet" href="{{ asset('assets/themes')}}/assets/libs/morris-js/morris.css" /> -->
@@ -18,7 +18,7 @@
 <link href="{{ asset('assets/themes')}}/assets/css/app.min.css" rel="stylesheet" type="text/css" />
 
 <!-- Sweet Alert css -->
-<link href="{{ asset('assets/themes')}}/assets/libs/sweetalert2/sweetalert2.min.css" rel="stylesheet" type="text/css" />
+<link href="{{ asset('plugins/sweetalert2/sweetalert2.min.css')}}" rel="stylesheet" type="text/css" />
 
-<link rel="stylesheet" href="{{ asset('assets/Parsley.js-2.9.2/src/parsley.css') }}">
+<link rel="stylesheet" href="{{ asset('plugins/Parsley.js-2.9.2/src/parsley.css') }}">
 <link rel="stylesheet" type="text/css" href="//cdn.datatables.net/1.10.7/css/jquery.dataTables.min.css">
