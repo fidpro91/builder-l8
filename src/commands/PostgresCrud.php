@@ -130,6 +130,7 @@ class PostgresCrud extends Command
      }
 
      protected function model($name,$schema){
+        $name=ucfirst($name);
         $modelTemplate = str_replace(
            ['{{ModelName}}', '{{ModelTable}}', '{{ModelField}}','{{ModelPrimaryKey}}'],
            [$name, strtolower(($schema.".".$name)),$this->Field,$this->primaryKey],
@@ -139,7 +140,7 @@ class PostgresCrud extends Command
         //insert record to table
         DB::table("table_generator")->insert([
             "schema_name"       => $this->schema,
-            "table_name"        => $name,
+            "table_name"        => strtolower($name),
             "table_element"     => "model"
         ]);
         file_put_contents(app_path("Models/{$name}.php"), $modelTemplate);
@@ -218,6 +219,7 @@ class PostgresCrud extends Command
         try {
             $this->generate_crud($make,$name,$schema);
             if ($routes == 'true') {
+                $name = ucfirst($name);
                 File::append(base_path('routes/web.php'),
                 "
                 Route::get('" . (strtolower($name)) . "/get_dataTable','{$name}Controller@get_dataTable');

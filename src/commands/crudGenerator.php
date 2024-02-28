@@ -117,16 +117,17 @@ class crudGenerator extends Command
      }
 
      protected function model($name){
+        $name = ucfirst($name);
         $modelTemplate = str_replace(
            ['{{ModelName}}', '{{ModelTable}}', '{{ModelField}}','{{ModelPrimaryKey}}'],
-           [$name, strtolower(($name)),$this->Field,$this->primaryKey],
+           [ucfirst($name), strtolower(($name)),$this->Field,$this->primaryKey],
            $this->getStub('Model')
         );
         file_put_contents(app_path("Models/{$name}.php"), $modelTemplate);
         //insert record to table
         DB::table("table_generator")->insert([
             "schema_name"       => DB::connection()->getDatabaseName(),
-            "table_name"        => $name,
+            "table_name"        => strtolower($name),
             "table_element"     => "model"
         ]);
      }
@@ -204,6 +205,7 @@ class crudGenerator extends Command
             $this->generate_crud($make,$name);
     
             if ($routes == 'true') {
+                $name = ucfirst($name);
                 File::append(base_path('routes/web.php'),
                 "
                 Route::get('" . (strtolower($name)) . "/get_dataTable','{$name}Controller@get_dataTable');
