@@ -52,7 +52,7 @@ class Create
         return self::_set_output($form,$name);
     }
 
-    private function _set_output ($form,$name){
+    private static function _set_output ($form,$name){
         static::$form = $form;
         static::$formId = $name;
         static::$formLabel = Str::ucfirst(Str::replace('_', ' ', $name));

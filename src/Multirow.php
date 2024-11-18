@@ -41,7 +41,7 @@ class Multirow extends Create
         return $html."\n".$scripts;
     }
 
-    private function set_data_row($data,$val)
+    private static function set_data_row($data,$val)
     {
         $row="";
         foreach ($val as $x => $v) {
@@ -70,7 +70,7 @@ class Multirow extends Create
         return $row;
     }
 
-    private function render_scripts($id,$row)
+    private static function render_scripts($id,$row)
     {
         $i=self::$i;
         $scripts = '
@@ -95,7 +95,7 @@ class Multirow extends Create
         return $scripts;
     }
 
-    private function render_table($id,$th,$row)
+    private static function render_table($id,$th,$row)
     {
         $table = '<table id="'.$id.'" class="table">
                     <thead>
@@ -110,7 +110,7 @@ class Multirow extends Create
         return $table;
     }
 
-    private function render_html($id,$title,$table)
+    private static function render_html($id,$title,$table)
     {
         
         $div = '<div class="card">
@@ -134,7 +134,7 @@ class Multirow extends Create
         return $div;
     }
 
-    private function get_input_type($id,$param)
+    private static function get_input_type($id,$param)
     {
         if (isset($param['name'])) {
             $name=$id.'[num_row]['.$param['name'].']';

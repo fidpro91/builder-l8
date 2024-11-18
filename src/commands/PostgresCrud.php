@@ -149,7 +149,7 @@ class PostgresCrud extends Command
      protected function view($name,$table){
         $tableHeader = "";
         $name = strtolower($name);
-        $tableHeader .= implode(",",$this->arrayField);
+        $tableHeader .= implode(",",array_unique($this->arrayField));
         $viewIndexTemplate = str_replace(
            ['{{ModelName}}'],
            [strtolower(($name))],
